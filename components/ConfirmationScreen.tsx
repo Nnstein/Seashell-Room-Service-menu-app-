@@ -1,16 +1,11 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
-import { CartItem, Language } from '../types';
 import { UI_TEXT } from '../data';
+import { useApp } from '../context/AppContext';
 
-interface ConfirmationScreenProps {
-  cartItems: CartItem[];
-  onGoHome: () => void;
-  language: Language;
-}
-
-const ConfirmationScreen: React.FC<ConfirmationScreenProps> = ({ cartItems, onGoHome, language }) => {
-  const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+const ConfirmationScreen: React.FC = () => {
+  const { confirmedOrder, resetOrder, language, roomNumber } = useApp();
+  const total = confirmedOrder.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const isRTL = language === 'ar';
 
   return (
@@ -32,15 +27,15 @@ const ConfirmationScreen: React.FC<ConfirmationScreenProps> = ({ cartItems, onGo
         <div className="bg-stone-50 px-10 py-8 flex justify-between items-center border-b border-stone-200">
           <h3 className="text-stone-800 font-serif text-2xl font-bold">{UI_TEXT.receipt[language]}</h3>
           <div className="text-right">
-            <p className="text-stone-400 text-xs uppercase tracking-widest">{UI_TEXT.orderNumber[language]}</p>
-            <p className="text-stone-900 font-mono text-lg font-bold">#{Math.floor(Math.random() * 10000)}</p>
+            <p className="text-stone-400 text-xs uppercase tracking-widest">{UI_TEXT.roomNumber[language]}</p>
+            <p className="text-stone-900 font-mono text-2xl font-bold">{roomNumber}</p>
           </div>
         </div>
         
         <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-6">
                 <h4 className="text-stone-400 text-xs uppercase tracking-widest mb-4">{UI_TEXT.itemsOrdered[language]}</h4>
-                {cartItems.map((item) => (
+                {confirmedOrder.map((item) => (
                     <div key={item.cartId} className="flex gap-4 items-center border-b border-stone-100 pb-4 last:border-0">
                         <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 shadow-md">
                             <img src={item.image} alt={item.name[language]} className="w-full h-full object-cover" />
@@ -80,7 +75,7 @@ const ConfirmationScreen: React.FC<ConfirmationScreenProps> = ({ cartItems, onGo
         </div>
         
         <div className="bg-stone-50 p-8 text-center border-t border-stone-200">
-             <button onClick={onGoHome} className="inline-flex items-center justify-center px-8 py-3 border border-stone-300 shadow-sm text-sm font-medium rounded-full text-stone-700 bg-white hover:bg-stone-50 transition-all hover:border-gold hover:text-gold">
+             <button onClick={resetOrder} className="inline-flex items-center justify-center px-8 py-3 border border-stone-300 shadow-sm text-sm font-medium rounded-full text-stone-700 bg-white hover:bg-stone-50 transition-all hover:border-gold hover:text-gold">
                 {UI_TEXT.startNew[language]}
              </button>
         </div>

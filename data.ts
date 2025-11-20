@@ -3,26 +3,29 @@ import { Category, LocalizedString } from './types';
 // Helper to generate image URLs
 const getImg = (id: number) => `https://picsum.photos/400/300?random=${id}`;
 
-// Abstract 3D Gold/Black Fluid Animation
-export const LANDING_VIDEO = "https://videos.pexels.com/video-files/2041025/2041025-uhd_3840_2160_30fps.mp4";
+// Landing Background Image (Distinct from Hot Beverages)
+export const LANDING_IMAGE = "https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=2832&auto=format&fit=crop";
 
 export const UI_TEXT = {
   viewMenu: { en: "View Menu", ar: "قائمة الطعام" },
+  enterRoom: { en: "Enter Room Number", ar: "أدخل رقم الغرفة" },
+  enterRoomPrompt: { en: "Please enter your room number to order", ar: "الرجاء إدخال رقم الغرفة للطلب" },
+  roomNumber: { en: "Room Number", ar: "رقم الغرفة" },
   myOrder: { en: "My Order", ar: "طلباتي" },
   items: { en: "items", ar: "عناصر" },
-  total: { en: "Total Amount", ar: "المجموع الإجمالي" },
+  total: { en: "Total", ar: "المجموع" }, 
   placeOrder: { en: "Place Order", ar: "تأكيد الطلب" },
   yourOrderEmpty: { en: "Your order is empty", ar: "سلة الطلبات فارغة" },
   exploreMenu: { en: "Explore our menu and add some delicious items.", ar: "تصفح القائمة وأضف بعض الأصناف اللذيذة." },
   orderReceived: { en: "Order Received!", ar: "تم استلام الطلب!" },
-  orderMsg: { en: "Your selection is being prepared with care. We'll call your name shortly.", ar: "يتم تحضير طلبك بعناية. سنناديك باسمك قريباً." },
+  orderMsg: { en: "Your selection is being prepared. We will deliver to your room shortly.", ar: "يتم تحضير طلبك. سنقوم بالتوصيل لغرفتك قريباً." },
   receipt: { en: "Receipt", ar: "الفاتورة" },
   orderNumber: { en: "Order Number", ar: "رقم الطلب" },
   itemsOrdered: { en: "Items Ordered", ar: "العناصر المطلوبة" },
   subtotal: { en: "Subtotal", ar: "المجموع الفرعي" },
   serviceCharge: { en: "Service Charge", ar: "رسوم الخدمة" },
-  totalPaid: { en: "Total Paid", ar: "الإجمالي المدفوع" },
-  startNew: { en: "Start a New Order", ar: "ابدأ طلب جديد" },
+  totalPaid: { en: "Total", ar: "الإجمالي" },
+  startNew: { en: "Back to Home", ar: "العودة للرئيسية" },
   experienceTaste: { en: "Experience the Taste", ar: "تذوق الفخامة" },
   welcomeTitle: { en: "Presto Coffee & More", ar: "بريستو كوفي وأكثر" },
   welcomeSubtitle: { en: "A symphony of flavors, crafted for moments of pure delight.", ar: "سيمفونية من النكهات، صُنعت لتبقى في الذاكرة." }
@@ -31,7 +34,8 @@ export const UI_TEXT = {
 // Specific images for categories
 const catImages = {
   hot: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80",
-  cold: "https://images.unsplash.com/photo-1517701604599-bb29b5c5090c?auto=format&fit=crop&w=600&q=80",
+  // New working Cold Beverage Image
+  cold: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=600&q=80",
   frappe: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=600&q=80",
   appetizers: "https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=600&q=80",
   pizza: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
