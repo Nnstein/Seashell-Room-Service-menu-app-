@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect, PropsWithChildren } from 'react';
 import { Language, CartItem, MenuItem, ViewState } from '../types';
 import { MENU_DATA } from '../data';
 
@@ -25,7 +25,7 @@ interface AppState {
 
 const AppContext = createContext<AppState | undefined>(undefined);
 
-export const AppProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children }: PropsWithChildren) => {
   const [language, setLanguage] = useState<Language>('en');
   const [view, setView] = useState<ViewState>('HOME');
   const [activeCategory, setActiveCategory] = useState<string>(MENU_DATA[0].id);
@@ -65,10 +65,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleCheckout = () => {
-    setConfirmedOrder([...cart]); // Save current cart items to confirmed order
-    setCart([]); // Clear the editable cart
-    setIsCartOpen(false);
+    if (cart.length === 0) return;
+
+    const orderToConfirm = [...cart];
+    setConfirmedOrder(orderToConfirm);
     setView('CONFIRMATION');
+    
+    // Cleanup logic
+    setCart([]);
+    setIsCartOpen(false);
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

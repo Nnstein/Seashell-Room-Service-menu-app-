@@ -50,7 +50,11 @@ const OrderDrawer: React.FC<OrderDrawerProps> = () => {
                  <span className="text-sm font-sans font-bold text-gold bg-stone-900 px-2 py-0.5 rounded">{roomNumber}</span>
               </div>
             </div>
-            <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-stone-200 rounded-full text-stone-500 transition-colors">
+            <button 
+              type="button"
+              onClick={() => setIsCartOpen(false)} 
+              className="p-2 hover:bg-stone-200 rounded-full text-stone-500 transition-colors"
+            >
               <X size={24} />
             </button>
           </div>
@@ -82,6 +86,7 @@ const OrderDrawer: React.FC<OrderDrawerProps> = () => {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center bg-stone-100 rounded-lg h-8">
                           <button 
+                            type="button"
                             onClick={() => updateQuantity(item.cartId, -1)}
                             className={`w-8 h-full flex items-center justify-center hover:bg-stone-200 text-stone-600 ${isRTL ? 'rounded-r-lg' : 'rounded-l-lg'} transition-colors`}
                           >
@@ -89,6 +94,7 @@ const OrderDrawer: React.FC<OrderDrawerProps> = () => {
                           </button>
                           <span className="w-8 text-center font-sans text-sm font-bold text-stone-800">{item.quantity}</span>
                           <button 
+                            type="button"
                             onClick={() => updateQuantity(item.cartId, 1)}
                             className={`w-8 h-full flex items-center justify-center hover:bg-stone-200 text-stone-600 ${isRTL ? 'rounded-l-lg' : 'rounded-r-lg'} transition-colors`}
                           >
@@ -96,6 +102,7 @@ const OrderDrawer: React.FC<OrderDrawerProps> = () => {
                           </button>
                         </div>
                         <button 
+                          type="button"
                           onClick={() => removeFromCart(item.cartId)}
                           className="text-stone-400 hover:text-red-500 p-1 transition-colors"
                         >
@@ -119,7 +126,11 @@ const OrderDrawer: React.FC<OrderDrawerProps> = () => {
                 </div>
               </div>
               <button
-                onClick={handleCheckout}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCheckout();
+                }}
                 className="w-full bg-stone-900 text-white font-bold text-lg py-4 rounded-2xl shadow-lg hover:bg-gold hover:text-white hover:shadow-gold/20 hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-3"
               >
                 {UI_TEXT.placeOrder[language]} {isRTL ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
