@@ -21,6 +21,7 @@ interface AppState {
   animateCart: boolean;
   roomNumber: string;
   setRoomNumber: (room: string) => void;
+  clearCart: () => void;
 }
 
 const AppContext = createContext<AppState | undefined>(undefined);
@@ -64,17 +65,27 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
     setCart(prev => prev.filter(item => item.cartId !== cartId));
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const handleCheckout = () => {
     if (cart.length === 0) return;
 
+    // Snapshot the current cart for the confirmation screen
     const orderToConfirm = [...cart];
     setConfirmedOrder(orderToConfirm);
+    
+    // Switch view FIRST
     setView('CONFIRMATION');
     
-    // Cleanup logic
-    setCart([]);
+    // Close drawer
     setIsCartOpen(false);
     
+    // Note: We DO NOT clear the cart here. We let the ConfirmationScreen 
+    // clear it on mount. This prevents race conditions where the cart 
+    // empties before the view switches, causing weird UI states.
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -102,7 +113,8 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
       cart, confirmedOrder, addToCart, updateQuantity, removeFromCart, resetOrder, handleCheckout,
       isCartOpen, setIsCartOpen,
       animateCart,
-      roomNumber, setRoomNumber
+      roomNumber, setRoomNumber,
+      clearCart
     }}>
       {children}
     </AppContext.Provider>

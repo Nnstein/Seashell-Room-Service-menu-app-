@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { UI_TEXT } from '../data';
 import { useApp } from '../context/AppContext';
 
 const ConfirmationScreen: React.FC = () => {
-  const { confirmedOrder, resetOrder, language, roomNumber } = useApp();
+  const { confirmedOrder, resetOrder, language, roomNumber, clearCart } = useApp();
   const total = confirmedOrder.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const isRTL = language === 'ar';
+
+  // Clear the active cart when this screen mounts.
+  // This ensures the transition happens smoothly before we wipe the cart state.
+  useEffect(() => {
+    clearCart();
+  }, [clearCart]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-50 text-green-600 mb-6 shadow-inner animate-bounce">
+        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white text-green-600 mb-6 shadow-lg animate-bounce">
           <CheckCircle size={48} />
         </div>
-        <h2 className="font-serif text-5xl font-bold text-stone-900 mb-6">{UI_TEXT.orderReceived[language]}</h2>
-        <p className="text-stone-500 text-xl font-sans max-w-lg mx-auto font-light leading-relaxed">
+        <h2 className="font-serif text-5xl font-bold text-white mb-6 drop-shadow-lg">{UI_TEXT.orderReceived[language]}</h2>
+        <p className="text-stone-200 text-xl font-sans max-w-lg mx-auto font-light leading-relaxed drop-shadow-md">
           {UI_TEXT.orderMsg[language]}
         </p>
       </div>
